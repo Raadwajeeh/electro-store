@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function ProductCard({
   product,
   image,
@@ -16,7 +18,11 @@ function ProductCard({
       <div className="p-5">
         <p className="text-sm text-blue-500 font-semibold mb-2">{category}</p>
 
-        <h3 className="text-xl font-bold text-zinc-900 mb-2">{title}</h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="text-xl font-bold text-zinc-900 mb-2 hover:text-blue-500">
+            {title}
+          </h3>
+        </Link>
 
         <p className="text-zinc-500 mb-4">{description}</p>
 

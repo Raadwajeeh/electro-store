@@ -1,9 +1,9 @@
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
-
+import { getProducts } from "../services/productService";
 function HomePage({ onAddToCart }) {
-  return (
+  const products = getProducts();
+  return (  
     <>
       <Hero />
 

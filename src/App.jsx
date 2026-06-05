@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import CartPage from "./pages/CartPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -26,6 +27,10 @@ function App() {
         path="/cart"
         element={<CartPage cart={cart} />}
       />
+      <Route
+  path="/product/:id"
+  element={<ProductDetailsPage onAddToCart={handleAddToCart} />}
+/>
     </Routes>
   </>
 );
