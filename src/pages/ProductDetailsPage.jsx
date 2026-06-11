@@ -1,13 +1,11 @@
 import { useParams } from "react-router-dom";
-import { products } from "../data/products";
+import { getProductById } from "../services/productService";
 
 function ProductDetailsPage({ onAddToCart }) {
 
     const { id } = useParams();
 
-    const product = products.find(
-        (item) => item.id === Number(id)
-    );
+    const product = getProductById(id);
 
     if (!product) {
         return (
