@@ -1,13 +1,33 @@
+import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/productService";
 
 function ProductsPage({ onAddToCart }) {
-  const products = getProducts();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const productsFromApi = await getProducts();
+
+      setProducts(productsFromApi);
+      setLoading(false);
+    }
+
+    loadProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-3xl font-bold">Loading products...</h1>
+      </div>
+    );
+  }
 
   return (
     <section className="bg-zinc-100 min-h-screen py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-
         <h1 className="text-5xl font-bold text-center mb-12">
           All Products
         </h1>
@@ -26,7 +46,6 @@ function ProductsPage({ onAddToCart }) {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

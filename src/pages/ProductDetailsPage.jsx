@@ -1,15 +1,38 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../services/productService";
 
 function ProductDetailsPage({ onAddToCart }) {
-
     const { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const product = getProductById(id);
+    useEffect(() => {
+        async function loadProduct() {
+            setLoading(true);
+            try {
+                const productFromApi = await getProductById(id);
+                setProduct(productFromApi);
+            } catch (error) {
+                console.error("Failed to fetch product:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadProduct();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className="max-w-7xl mx-auto px-4 py-12 flex justify-center items-center min-h-[50vh]">
+                <h1 className="text-3xl font-bold">Loading product details...</h1>
+            </div>
+        );
+    }
 
     if (!product) {
         return (
-            <div className="max-w-7xl mx-auto px-4 py-12">
+            <div className="max-w-7xl mx-auto px-4 py-12 flex justify-center items-center min-h-[50vh]">
                 <h1 className="text-4xl font-bold">Product not found</h1>
             </div>
         );

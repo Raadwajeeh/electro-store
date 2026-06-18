@@ -1,9 +1,11 @@
-import { products } from "../data/products";
+const API_URL = "https://fakestoreapi.com/products/category/electronics";
 
-export function getProducts() {
-  return products;
+export async function getProducts() {
+  const response = await fetch(API_URL);
+  return await response.json();
 }
 
-export function getProductById(id) {
-  return products.find((product) => product.id === Number(id));
+export async function getProductById(id) {
+  const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+  return await response.json();
 }
